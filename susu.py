@@ -3,7 +3,6 @@ from decimal import Decimal, InvalidOperation
 
 
 class SusuGroup:
-    """Manage the basic details of a rotating savings group."""
 
     def __init__(self, weekly_contribution):
         self.weekly_contribution = self._to_money(
@@ -22,7 +21,7 @@ class SusuGroup:
 
     @staticmethod
     def _to_money(amount):
-        """Convert an amount to Decimal without using float arithmetic."""
+
         try:
             money = Decimal(str(amount))
         except (InvalidOperation, ValueError):
@@ -39,7 +38,7 @@ class SusuGroup:
         return money.quantize(Decimal("0.01"))
 
     def add_member(self, name):
-        """Add a member if the name is valid and unique."""
+
         if not isinstance(name, str) or not name.strip():
             raise ValueError("Member name cannot be empty.")
 
@@ -65,7 +64,7 @@ class SusuGroup:
 
 
     def record_contribution(self, member_name, amount):
-        """Record a full or partial payment for the current week."""
+
         if member_name not in self.members:
             raise ValueError("Unknown member.")
 
@@ -93,7 +92,7 @@ class SusuGroup:
         week_payments[member_name] = already_paid + payment
 
     def outstanding_balance(self, member_name):
-        """Return how much a member still owes this week."""
+
         if member_name not in self.members:
             raise ValueError("Unknown member.")
 
@@ -104,7 +103,7 @@ class SusuGroup:
         return self.weekly_contribution - paid
 
     def close_week(self):
-        """Close the current week if every member has paid in full."""
+
         if not self.members:
             raise ValueError("Cannot close a group with no members.")
 
@@ -141,7 +140,7 @@ class SusuGroup:
         }
 
     def get_report(self):
-        """Return a report for the current week and payout history."""
+
         week_payments = self.contributions.get(
             self.current_week, {}
         )
