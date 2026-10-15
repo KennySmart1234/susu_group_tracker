@@ -1,5 +1,6 @@
 .venv/
+.idea/
 __pycache__/
 *.py[cod]
-.pytest_cache/
-.coverage
+check_susu.py
+check_payments.py
